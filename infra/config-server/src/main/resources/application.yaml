@@ -24,9 +24,13 @@ eureka:
     leaseRenewalIntervalInSeconds: 10
 
 server:
-  port: 8888
+#  port: 8888
+  port: 0
 
 logging:
   level:
     org.springframework.cloud.config.server: DEBUG
     org.springframework.cloud.config.server.resource: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.cloud.client.discovery: DEBUG

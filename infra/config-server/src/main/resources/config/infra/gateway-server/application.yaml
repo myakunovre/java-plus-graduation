@@ -4,11 +4,11 @@ spring:
   cloud:
     gateway:
       discovery.locator.enabled: true
-      lower-case-service-id: true
+#      lower-case-service-id: true
       routes:
 
         - id: common_route
-          uri: lb:main-service
+          uri: lb://main-service
           predicates:
             - Path=/**
 
@@ -123,7 +123,10 @@ server:
 
 logging:
   level:
-    org.springframework.web: TRACE
-    org.springframework.http: TRACE
-    org.slf4j: TRACE
-    ru.practicum: TRACE
+    org.springframework.web: DEBUG
+    org.springframework.http: DEBUG
+    org.slf4j: DEBUG
+    ru.practicum: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.cloud.client.discovery: DEBUG

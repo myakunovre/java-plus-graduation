@@ -11,9 +11,9 @@ spring:
       mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:6541/ewm-main
-    username: root
-    password: root
+    url: jdbc:postgresql://localhost:6541/ewm
+    username: ewm
+    password: ewm
 
 logging:
   level:
@@ -30,6 +30,10 @@ logging:
         SQL: DEBUG
         type.descriptor.sql.BasicBined: TRACE
     ru.practicum: DEBUG
+    com.netflix.discovery: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+    org.springframework.cloud.client.discovery: DEBUG
+
 
 #server:
 #  port: 8080

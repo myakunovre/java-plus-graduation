@@ -8,6 +8,7 @@ import ru.practicum.dto.output.GetStatisticDto;
 import ru.practicum.events.model.Event;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -46,8 +47,14 @@ public class StatClientService {
                 .map(id -> "/events/" + id)
                 .toList();
 
+        DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //        List<GetStatisticDto> stats = statsClient.getStats(start, LocalDateTime.now(), uri, true);
-        List<GetStatisticDto> stats = statsClient.getStatistic(start.toString(), LocalDateTime.now().toString(), uri, true);
+        List<GetStatisticDto> stats = statsClient.getStatistic(
+                start.format(dateTimeFormat),
+                LocalDateTime.now().format(dateTimeFormat),
+                uri,
+                true
+        );
 
         stats.forEach(statDto -> {
             String[] parts = statDto.getUri().split("/");
