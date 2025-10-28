@@ -3,13 +3,11 @@ package ru.practicum.dto.in;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import org.hibernate.validator.constraints.Size;
-//import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +21,7 @@ public class StatisticDto {
     @NotEmpty
     private String uri;
     @NotEmpty
-    @Size(min = 8, max = 16)
+    @Length(min = 8, max = 16)
     private String ip;
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -24,7 +24,6 @@ eureka:
     leaseRenewalIntervalInSeconds: 10
 
 server:
-#  port: 8888
   port: 0
 
 logging:

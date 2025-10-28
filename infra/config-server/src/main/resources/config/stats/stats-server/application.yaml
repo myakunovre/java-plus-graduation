@@ -33,5 +33,3 @@ logging:
     com.netflix.discovery: DEBUG
     org.springframework.cloud.netflix.eureka: DEBUG
     org.springframework.cloud.client.discovery: DEBUG
-
-#client.url: http://localhost:9090

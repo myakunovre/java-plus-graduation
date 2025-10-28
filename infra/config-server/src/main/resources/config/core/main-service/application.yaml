@@ -33,12 +33,3 @@ logging:
     com.netflix.discovery: DEBUG
     org.springframework.cloud.netflix.eureka: DEBUG
     org.springframework.cloud.client.discovery: DEBUG
-
-
-#server:
-#  port: 8080
-
-#STATS_SERVER_URL: http://localhost:9090
-
-#app:
-#  stats-server-url: http://localhost:9090

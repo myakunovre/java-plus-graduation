@@ -15,7 +15,6 @@ import java.util.*;
 @Component
 @Slf4j
 public class StatClientService {
-//    private final StatsClient statsClient;
     private final StatsFeinClient statsClient;
 
     public Map<Long, Long> getEventsView(List<Event> events) {
@@ -48,7 +47,6 @@ public class StatClientService {
                 .toList();
 
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-//        List<GetStatisticDto> stats = statsClient.getStats(start, LocalDateTime.now(), uri, true);
         List<GetStatisticDto> stats = statsClient.getStatistic(
                 start.format(dateTimeFormat),
                 LocalDateTime.now().format(dateTimeFormat),

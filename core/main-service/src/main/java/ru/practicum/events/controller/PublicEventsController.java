@@ -27,7 +27,6 @@ import java.util.Set;
 @Slf4j
 public class PublicEventsController {
 
-//    private final StatsClient statsClient;
     private final StatsFeinClient statsClient;
     private final EventService eventService;
 
@@ -39,7 +38,6 @@ public class PublicEventsController {
                 .ip(request.getRemoteAddr())
                 .timestamp(LocalDateTime.now())
                 .build();
-//        statsClient.hit(statDto);
         statsClient.addHit(statDto);
         return eventService.getEvent(eventId);
     }
@@ -63,7 +61,6 @@ public class PublicEventsController {
         List<EventShortDto> eventShorts = eventService.findEvents(param);
 
         log.info("HIT request \"GET /events\" to statsService with params: {}", param);
-//        statsClient.hit(new StatisticDto(
         statsClient.addHit(new StatisticDto(
                 "main-service",
                 request.getRequestURI(),

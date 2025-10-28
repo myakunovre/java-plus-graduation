@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @Slf4j
-//public class StatisticController {
 public class StatisticController implements StatsFeinClient {
 
     private final StatisticService service;
