@@ -1,6 +1,6 @@
 spring:
-  main:
-    web-application-type: reactive
+#  main:
+#    web-application-type: reactive
   cloud:
     gateway:
       discovery.locator.enabled: true
@@ -123,7 +123,7 @@ server:
 
 logging:
   level:
-    org.springframework.web: DEBUG
-    org.springframework.http: DEBUG
-    org.slf4j: DEBUG
-    ru.practicum: DEBUG
+    org.springframework.web: TRACE
+    org.springframework.http: TRACE
+    org.slf4j: TRACE
+    ru.practicum: TRACE
