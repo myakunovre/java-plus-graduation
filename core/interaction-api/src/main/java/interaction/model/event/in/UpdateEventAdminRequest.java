@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-//import ru.practicum.events.model.Location;
-//import ru.practicum.events.model.StateActionForAdmin;
 
 import java.time.LocalDateTime;
 

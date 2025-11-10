@@ -7,8 +7,6 @@ import interaction.model.user.output.UserShortDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import ru.practicum.events.model.Location;
-//import ru.practicum.events.model.State;
 
 import java.time.LocalDateTime;
 

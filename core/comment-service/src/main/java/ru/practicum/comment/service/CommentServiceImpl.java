@@ -206,7 +206,6 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public List<CommentFullDto> getComments(GetCommentParam param) {
         checkUserIfExists(param.getUserId());
-        checkUserIfExists(param.getUserId());
 
         List<Comment> comments;
         if (param.getSize() == 0) {

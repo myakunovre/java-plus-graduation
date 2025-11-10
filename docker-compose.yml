@@ -39,8 +39,8 @@ services:
       retries: 15
 
   ewm-service:
-    build: ./core/main-service
-    image: main-service
+    build: ./core/event-service
+    image: event-service
     container_name: ewm-service
     networks:
       - ewm-net
