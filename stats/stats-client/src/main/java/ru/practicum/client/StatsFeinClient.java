@@ -8,15 +8,15 @@ import ru.practicum.dto.output.GetStatisticDto;
 
 import java.util.List;
 
-@FeignClient(name = "stats-server")
+@FeignClient(name = "stats-server", fallbackFactory =  StatsClientFallbackFactory.class)
 public interface StatsFeinClient {
 
     @PostMapping("/hit")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addHit(@RequestBody StatisticDto statisticDto);
+    void addHit(@RequestBody StatisticDto statisticDto);
 
     @GetMapping("/stats")
-    public List<GetStatisticDto> getStatistic(
+    List<GetStatisticDto> getStatistic(
             @RequestParam String start,
             @RequestParam String end,
             @RequestParam(required = false, defaultValue = "") List<String> uris,
