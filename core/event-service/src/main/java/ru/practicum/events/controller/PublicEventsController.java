@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.client.StatsFeinClient;
 import ru.practicum.dto.in.StatisticDto;
+import ru.practicum.ewm.client.stats.CollectorClient;
 import ru.practicum.events.model.EventPublicParam;
 import ru.practicum.events.service.EventService;
 
@@ -27,8 +28,10 @@ import java.util.Set;
 @Slf4j
 public class PublicEventsController {
 
-    private final StatsFeinClient statsClient;
+//    private final StatsFeinClient statsClient;
     private final EventService eventService;
+    private final CollectorClient collectorClient;
+
 
     @GetMapping("/{eventId}")
     public EventFullDto getEventById(@PathVariable Long eventId, HttpServletRequest request) {
@@ -39,6 +42,10 @@ public class PublicEventsController {
                 .timestamp(LocalDateTime.now())
                 .build();
         statsClient.addHit(statDto);
+
+        collectorClient.saveView(userId, eventId);
+        log.info("User action of view event with id: {} received to Stats-Server", eventId);
+
         return eventService.getEvent(eventId);
     }
 

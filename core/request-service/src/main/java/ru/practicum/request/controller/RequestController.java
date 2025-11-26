@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm.client.stats.CollectorClient;
 import ru.practicum.request.service.RequestService;
 
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.List;
 public class RequestController {
 
     private final RequestService requestService;
+    private final CollectorClient collectorClient;
+
 
     @GetMapping("/users/{userId}/requests")
     public List<ParticipationRequestDtoOut> getUserRequests(@PathVariable Long userId) {
@@ -36,6 +39,9 @@ public class RequestController {
 
         ParticipationRequestDtoOut request = requestService.create(userId, eventId);
         log.info("Created request with id: {} for userId: {}, eventId: {}", request.getId(), userId, eventId);
+
+        collectorClient.saveRegister(userId, eventId);
+        log.info("User action of registration event with id: {} received to Stats-Server", eventId);
 
         return request;
     }
