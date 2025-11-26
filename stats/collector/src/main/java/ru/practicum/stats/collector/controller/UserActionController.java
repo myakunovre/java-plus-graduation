@@ -15,9 +15,6 @@ import ru.practicum.stats.collector.service.UserActionService;
 public class UserActionController extends UserActionControllerGrpc.UserActionControllerImplBase {
     private final UserActionService userActionService;
     
-//    public UserActionController(UserActionService userActionService) {
-//        this.userActionService = userActionService;
-//    }
 
     @Override
     public void collectUserAction(UserActionProto userActionProto, StreamObserver<Empty> responseObserver) {

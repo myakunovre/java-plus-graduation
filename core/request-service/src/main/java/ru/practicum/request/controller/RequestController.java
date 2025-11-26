@@ -88,4 +88,9 @@ public class RequestController {
         log.info("Запрос от микросервиса на получение кол-ва запросов к событию с ID = {}", eventIds);
         return requestService.getCountRequestByEventId(eventIds, status);
     }
+
+    @GetMapping("/requests/check-user-took-event")
+    public boolean isUserTookEvent(@RequestParam Long userId, @RequestParam Long eventId) {
+        return requestService.isUserTookEvent(userId, eventId);
+    }
 }

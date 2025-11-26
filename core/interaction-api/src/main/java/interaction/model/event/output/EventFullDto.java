@@ -32,5 +32,5 @@ public class EventFullDto {
     Boolean requestModeration;
     State state;
     String title;
-    Long views;
+    Double rating;
 }

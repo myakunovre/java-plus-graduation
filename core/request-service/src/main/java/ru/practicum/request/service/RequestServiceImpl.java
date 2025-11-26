@@ -139,6 +139,11 @@ public class RequestServiceImpl implements RequestService {
         return requestRepository.countAllByEventIdInAndStatus(eventIds, status);
     }
 
+    @Override
+    public boolean isUserTookEvent(Long userId, Long eventId) {
+        return requestRepository.existsByRequesterIdAndEventIdAndStatus(userId, eventId, Status.CONFIRMED);
+    }
+
     private void validateRequestCreation(UserShortDto requester, EventFullDto event) {
         if (requestRepository.existsByRequesterIdAndEventId(requester.getId(), event.getId())) {
             log.warn("Request already exists for user with id={} and event with id={}", requester.getId(), event.getId());

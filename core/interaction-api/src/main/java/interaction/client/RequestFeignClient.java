@@ -25,4 +25,7 @@ public interface RequestFeignClient {
     @GetMapping("/requests/count-by-event-id")
     List<Object[]> getCountRequestByEventId(@RequestParam List<Long> eventIds,
                                             @RequestParam Status status);
+
+    @GetMapping("/requests/check-user-took-event")
+    boolean isUserTookEvent(@RequestParam Long userId, @RequestParam Long eventId);
 }

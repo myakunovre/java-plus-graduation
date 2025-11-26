@@ -13,8 +13,6 @@ import java.time.Instant;
 @Slf4j
 @Service
 public class CollectorClient {
-    // есть код в вебинаре 9:33
-    // куда-то добавить grpc Collector
 
     private final UserActionControllerGrpc.UserActionControllerBlockingStub actionClient;
 

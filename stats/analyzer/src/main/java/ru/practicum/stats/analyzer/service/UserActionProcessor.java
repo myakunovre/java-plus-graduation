@@ -32,7 +32,6 @@ public class UserActionProcessor implements Runnable, DisposableBean {
     private final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new ConcurrentHashMap<>();
     private static final Duration CONSUME_ATTEMPT_TIMEOUT = Duration.ofMillis(1000);
 
-//    public UserActionProcessor(KafkaConfig config, HubEventService hubEventService) {
     public UserActionProcessor(KafkaConfig config, UserActionService userActionService) {
         this.consumer = new KafkaConsumer<>(config.getUserActionsConsumer().getProperties());
         this.userActionService = userActionService;
