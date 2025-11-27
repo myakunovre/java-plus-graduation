@@ -1,4 +1,4 @@
-package ru.practicum.ewm.client.stats;
+package ru.practicum;
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Component;

@@ -1,24 +1,22 @@
-package ru.practicum.ewm.client.stats;
+package ru.practicum;
 
 import com.google.protobuf.Timestamp;
-import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import ru.practicum.ewm.stats.proto.ActionTypeProto;
 import ru.practicum.ewm.stats.proto.UserActionControllerGrpc;
 import ru.practicum.ewm.stats.proto.UserActionProto;
 
 import java.time.Instant;
 
-@Slf4j
-@Service
+@Component
 public class CollectorClient {
+    @GrpcClient("collector")
+    private static UserActionControllerGrpc.UserActionControllerBlockingStub actionClient;
 
-    private final UserActionControllerGrpc.UserActionControllerBlockingStub actionClient;
-
-    public CollectorClient(@GrpcClient("collector") UserActionControllerGrpc.UserActionControllerBlockingStub actionClient) {
-        this.actionClient = actionClient;
-    }
+//    public CollectorClient( UserActionControllerGrpc.UserActionControllerBlockingStub actionClient) {
+//        this.actionClient = actionClient;
+//    }
 
     public void saveView(long userId, long eventId) {
         saveUserInteraction(userId, eventId, ActionTypeProto.ACTION_VIEW);

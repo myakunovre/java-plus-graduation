@@ -11,10 +11,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.ewm.client.stats.CollectorClient;
+import ru.practicum.CollectorClient;
 import ru.practicum.events.model.EventPublicParam;
 import ru.practicum.events.service.EventService;
-import ru.practicum.ewm.client.stats.RecommendationClient;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +28,6 @@ public class PublicEventsController {
 
     private final EventService eventService;
     private final CollectorClient collectorClient;
-    private final RecommendationClient recommendationClient;
 
 
     @GetMapping("/{eventId}")

@@ -33,8 +33,8 @@ import ru.practicum.events.model.Event;
 import ru.practicum.events.model.EventAdminParam;
 import ru.practicum.events.model.EventPublicParam;
 import ru.practicum.events.storage.EventRepository;
-import ru.practicum.ewm.client.stats.CollectorClient;
-import ru.practicum.ewm.client.stats.RecommendationClient;
+import ru.practicum.CollectorClient;
+import ru.practicum.RecommendationClient;
 import ru.practicum.ewm.stats.proto.RecommendedEventProto;
 
 import java.time.LocalDateTime;

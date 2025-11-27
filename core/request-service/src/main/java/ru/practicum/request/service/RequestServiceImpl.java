@@ -68,6 +68,7 @@ public class RequestServiceImpl implements RequestService {
 
         Request savedRequest = requestRepository.save(request);
         log.info("Request created with id: {}", savedRequest.getId());
+
         return requestMapper.toParticipationRequestDtoOut(savedRequest);
     }
 
