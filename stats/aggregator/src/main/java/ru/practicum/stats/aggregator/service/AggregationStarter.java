@@ -37,7 +37,8 @@ public class AggregationStarter {
 
 
 
-    public AggregationStarter(KafkaConfig kafkaConfig, EventSimilarityServiceImpl eventSimilarityService, Duration consumeAttemptTimeout) {
+    public AggregationStarter(KafkaConfig kafkaConfig,
+                              EventSimilarityServiceImpl eventSimilarityService) {
         this.consumer = new KafkaConsumer<>(kafkaConfig.getConsumer().getProperties());
         this.producer = new KafkaProducer<>(kafkaConfig.getProducer().getProperties());
         this.eventSimilarityService = eventSimilarityService;
