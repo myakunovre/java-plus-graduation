@@ -23,8 +23,6 @@ public class UserActionService {
                 userActionProto.getTimestamp().getSeconds(),
                 userActionProto.getTimestamp().getNanos()
         );
-//        kafkaProducer.send(userActionAvro, instant);
         kafkaProducer.send(userActionAvro, instant);
-//        kafkaProducer.send(userActionAvro, String.valueOf(request.getUserId()), instant);
     }
 }

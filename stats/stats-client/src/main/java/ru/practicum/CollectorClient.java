@@ -14,10 +14,6 @@ public class CollectorClient {
     @GrpcClient("collector")
     private static UserActionControllerGrpc.UserActionControllerBlockingStub actionClient;
 
-//    public CollectorClient( UserActionControllerGrpc.UserActionControllerBlockingStub actionClient) {
-//        this.actionClient = actionClient;
-//    }
-
     public void saveView(long userId, long eventId) {
         saveUserInteraction(userId, eventId, ActionTypeProto.ACTION_VIEW);
     }

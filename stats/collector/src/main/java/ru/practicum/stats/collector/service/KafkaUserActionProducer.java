@@ -16,38 +16,20 @@ import java.time.Instant;
 public class KafkaUserActionProducer implements AutoCloseable {
 
     protected final KafkaProducer<Long, SpecificRecordBase> producer;
-//    protected final KafkaProducer<String, SpecificRecordBase> producer;
-//    protected final KafkaProducer<String, UserActionAvro> producer;
-    //    protected final EnumMap<TopicType, String> topics;
     private final String topic;
 
     public KafkaUserActionProducer(KafkaConfig kafkaConfig) {
-//        this.topics = kafkaConfig.getProducer().getTopics();
         this.topic = kafkaConfig.getProducer().getTopics().get("user-actions");
         this.producer = new KafkaProducer<>(kafkaConfig.getProducer().getProperties());
     }
 
-//    public void send(SpecificRecordBase userAction, String hubId, Instant timeStamp, KafkaConfig.TopicType topicType) {
-//    public void send(SpecificRecordBase userAction,Instant timeStamp, KafkaConfig.TopicType topicType) {
     public void send(SpecificRecordBase userAction, Instant timeStamp) {
-//    public void send(SpecificRecordBase userAction, String userId, Instant timeStamp) {
-//    public void send(SpecificRecordBase userAction) {
-//    public void send(UserActionAvro userAction) {
 
         Long key = ((UserActionAvro) userAction).getUserId();
-//        String key = String.valueOf(((UserActionAvro) userAction).getUserId());
-//        String topic = topics.get(topicType);
         ProducerRecord<Long, SpecificRecordBase> record = new ProducerRecord<>(
-//        ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(
-//        ProducerRecord<String, UserActionAvro> record = new ProducerRecord<>(
                 topic,
                 null,
                 timeStamp.toEpochMilli(),
-//                hubId,
-//                null,
-//                key,
-//                userId,
-//                String.valueOf(userAction.getUserId()),
                 key,
                 userAction
         );

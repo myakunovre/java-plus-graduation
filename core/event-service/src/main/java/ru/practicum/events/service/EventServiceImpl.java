@@ -315,32 +315,6 @@ public class EventServiceImpl implements EventService {
         }
 
         return mapToShortDto(events);
-
-
-//        Map<Long, Long> views = Map.of();
-//
-//        if (events.isEmpty()) {
-//            return List.of();
-//        }
-//        try {
-//            views = statClientService.getEventsView(events);
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//        }
-//
-//        Map<Long, UserShortDto> userMap = getUserMap(events);
-//        List<EventShortDto> eventShortDtos = events.stream()
-//                .map(event -> eventMapper.toEventShortDto(event, userMap.get(event.getInitiatorId())))
-//                .toList();
-//
-//        if (!views.isEmpty()) {
-//            for (EventShortDto eventShortDto : eventShortDtos) {
-//                eventShortDto.setViews(views.get(eventShortDto.getId()));
-//            }
-//        } else {
-//            eventShortDtos.forEach(eventShortDto -> eventShortDto.setViews(0L));
-//        }
-//        return eventShortDtos;
     }
 
     @Override

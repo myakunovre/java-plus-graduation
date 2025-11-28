@@ -16,6 +16,7 @@ public class KafkaConfig {
     private Producer producer;
     private Consumer consumer;
     private Map<String, String> topics;
+    private long consumeAttemptTimeoutMillis;
 
     @Getter
     @Setter

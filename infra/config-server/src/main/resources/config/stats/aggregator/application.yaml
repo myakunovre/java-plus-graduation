@@ -23,6 +23,8 @@ aggregator:
       user-actions: stats.user-actions.v1
       events-similarity: stats.events-similarity.v1
 
+    consume-attempt-timeout-millis: 1000
+
 logging:
   level:
     org:

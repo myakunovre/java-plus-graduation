@@ -33,13 +33,15 @@ public class AggregationStarter {
     private final KafkaProducer<String, SpecificRecordBase> producer;
     private final EventSimilarityServiceImpl eventSimilarityService;
 
-    private static final Duration CONSUME_ATTEMPT_TIMEOUT = Duration.ofMillis(1000);
+    private final Duration consumeAttemptTimeout;
 
 
-    public AggregationStarter(KafkaConfig kafkaConfig, EventSimilarityServiceImpl eventSimilarityService) {
+
+    public AggregationStarter(KafkaConfig kafkaConfig, EventSimilarityServiceImpl eventSimilarityService, Duration consumeAttemptTimeout) {
         this.consumer = new KafkaConsumer<>(kafkaConfig.getConsumer().getProperties());
         this.producer = new KafkaProducer<>(kafkaConfig.getProducer().getProperties());
         this.eventSimilarityService = eventSimilarityService;
+        this.consumeAttemptTimeout = Duration.ofMillis(kafkaConfig.getConsumeAttemptTimeoutMillis());
         for (KafkaConfig.TopicType type : KafkaConfig.TopicType.values()) {
             topics.put(type, kafkaConfig.getTopic(type));
         }
@@ -55,7 +57,7 @@ public class AggregationStarter {
             consumer.subscribe(List.of(topics.get(KafkaConfig.TopicType.USER_ACTIONS)));
 
             while (true) {
-                ConsumerRecords<Long, SpecificRecordBase> records = consumer.poll(CONSUME_ATTEMPT_TIMEOUT);
+                ConsumerRecords<Long, SpecificRecordBase> records = consumer.poll(consumeAttemptTimeout);
 
                 for (ConsumerRecord<Long, SpecificRecordBase> record : records) {
                     UserActionAvro userAction = handleRecord(record);
