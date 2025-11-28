@@ -1,7 +1,7 @@
 package ru.practicum.events.service;
 
-import interaction.client.RequestFeignClient;
-import interaction.client.UserFeignClient;
+import interaction.client.request.RequestFeignClient;
+import interaction.client.user.UserFeignClient;
 import interaction.exceptions.ConflictException;
 import interaction.exceptions.DateException;
 import interaction.exceptions.NoHavePermissionException;

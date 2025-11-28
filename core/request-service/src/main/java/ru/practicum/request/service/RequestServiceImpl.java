@@ -1,7 +1,7 @@
 package ru.practicum.request.service;
 
-import interaction.client.EventFeignClient;
-import interaction.client.UserFeignClient;
+import interaction.client.event.EventFeignClient;
+import interaction.client.user.UserFeignClient;
 import interaction.exceptions.ConflictException;
 import interaction.exceptions.NotFoundException;
 import interaction.model.event.State;

@@ -1,5 +1,6 @@
 package ru.practicum.events.controller;
 
+import interaction.client.event.EventOperations;
 import interaction.model.event.output.EventFullDto;
 import interaction.model.event.output.EventShortDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import java.util.Set;
 @RequestMapping("/events")
 @Validated
 @Slf4j
-public class PublicEventsController {
+public class PublicEventsController implements EventOperations {
 
     private final EventService eventService;
     private final CollectorClient collectorClient;

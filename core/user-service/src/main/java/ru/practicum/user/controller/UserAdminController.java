@@ -1,5 +1,6 @@
 package ru.practicum.user.controller;
 
+import interaction.client.user.UserOperations;
 import interaction.model.user.in.NewUserRequest;
 import interaction.model.user.in.UserAdminParam;
 import interaction.model.user.output.UserDto;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/admin/users")
-public class UserAdminController {
+public class UserAdminController implements UserOperations {
     private final UserService service;
 
     @GetMapping

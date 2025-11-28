@@ -1,14 +1,12 @@
-package interaction.client;
+package interaction.client.request;
 
 import interaction.model.request.ParticipationRequestDtoOut;
 import interaction.model.request.Status;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "request-service", fallbackFactory = RequestClientFallbackFactory.class)
-public interface RequestFeignClient {
+public interface RequestOperations {
 
     @GetMapping("/requests/{id}")
     ParticipationRequestDtoOut getById(@PathVariable("id") Long id);

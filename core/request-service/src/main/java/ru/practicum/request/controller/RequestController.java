@@ -1,5 +1,6 @@
 package ru.practicum.request.controller;
 
+import interaction.client.request.RequestOperations;
 import interaction.model.request.ParticipationRequestDtoOut;
 import interaction.model.request.Status;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,10 @@ import java.util.List;
 @RequestMapping
 @RequiredArgsConstructor
 @Slf4j
-public class RequestController {
+public class RequestController implements RequestOperations {
 
     private final RequestService requestService;
     private final CollectorClient collectorClient;
-
 
     @GetMapping("/users/{userId}/requests")
     public List<ParticipationRequestDtoOut> getUserRequests(@PathVariable Long userId) {
@@ -58,7 +58,7 @@ public class RequestController {
     }
 
     @GetMapping("/requests/{id}")
-    ParticipationRequestDtoOut getById(@PathVariable("id") Long id) {
+    public ParticipationRequestDtoOut getById(@PathVariable("id") Long id) {
         log.info("Запрос на получение запроса с ID = {} от микросервиса", id);
         return requestService.getById(id);
     }
@@ -83,8 +83,8 @@ public class RequestController {
     }
 
     @GetMapping("/requests/count-by-event-id")
-    List<Object[]> getCountRequestByEventId(@RequestParam List<Long> eventIds,
-                                            @RequestParam Status status) {
+    public List<Object[]> getCountRequestByEventId(@RequestParam List<Long> eventIds,
+                                                   @RequestParam Status status) {
         log.info("Запрос от микросервиса на получение кол-ва запросов к событию с ID = {}", eventIds);
         return requestService.getCountRequestByEventId(eventIds, status);
     }

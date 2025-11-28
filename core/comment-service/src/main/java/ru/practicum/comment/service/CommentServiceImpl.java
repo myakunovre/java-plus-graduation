@@ -2,8 +2,8 @@
 package ru.practicum.comment.service;
 
 import feign.FeignException;
-import interaction.client.EventFeignClient;
-import interaction.client.UserFeignClient;
+import interaction.client.event.EventFeignClient;
+import interaction.client.user.UserFeignClient;
 import interaction.exceptions.ConflictException;
 import interaction.exceptions.ForbiddenException;
 import interaction.exceptions.NotFoundException;

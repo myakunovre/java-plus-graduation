@@ -1,4 +1,4 @@
-package interaction.client;
+package interaction.client.request;
 
 import interaction.model.request.Status;
 import org.springframework.stereotype.Component;
