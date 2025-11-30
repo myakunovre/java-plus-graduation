@@ -3,6 +3,7 @@ package ru.practicum.request.service;
 
 import interaction.model.request.ParticipationRequestDtoOut;
 import interaction.model.request.Status;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface RequestService {
     void setStatusRequests(List<Long> requestIds, Status status);
 
     List<Object[]> getCountRequestByEventId(List<Long> eventIds, Status status);
+
+    boolean isUserTookEvent(Long userId, Long eventId);
 }

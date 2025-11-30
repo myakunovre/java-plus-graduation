@@ -8,7 +8,6 @@ import interaction.model.event.output.EventFullDto;
 import interaction.model.event.output.EventShortDto;
 import interaction.model.event.output.SwitchRequestsStatus;
 import interaction.model.request.ParticipationRequestDtoOut;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.practicum.events.model.EventAdminParam;
 import ru.practicum.events.model.EventPublicParam;
 
@@ -41,4 +40,8 @@ public interface EventService {
     EventShortDto getEventShortDtoById(Long eventId);
 
     List<EventShortDto> getByIds(List<Long> eventIds);
+
+    List<EventShortDto> getRecommendationsForUser(Long userId);
+
+    void likeEvent(Long eventId, Long userId);
 }

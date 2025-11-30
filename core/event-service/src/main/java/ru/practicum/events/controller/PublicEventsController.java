@@ -1,5 +1,6 @@
 package ru.practicum.events.controller;
 
+import interaction.client.event.EventOperations;
 import interaction.model.event.output.EventFullDto;
 import interaction.model.event.output.EventShortDto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,8 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.client.StatsFeinClient;
-import ru.practicum.dto.in.StatisticDto;
+import ru.practicum.CollectorClient;
 import ru.practicum.events.model.EventPublicParam;
 import ru.practicum.events.service.EventService;
 
@@ -25,21 +25,20 @@ import java.util.Set;
 @RequestMapping("/events")
 @Validated
 @Slf4j
-public class PublicEventsController {
+public class PublicEventsController implements EventOperations {
 
-    private final StatsFeinClient statsClient;
     private final EventService eventService;
+    private final CollectorClient collectorClient;
+
 
     @GetMapping("/{eventId}")
-    public EventFullDto getEventById(@PathVariable Long eventId, HttpServletRequest request) {
-        StatisticDto statDto = StatisticDto.builder()
-                .app("main-service")
-                .uri(request.getRequestURI())
-                .ip(request.getRemoteAddr())
-                .timestamp(LocalDateTime.now())
-                .build();
-        statsClient.addHit(statDto);
-        return eventService.getEvent(eventId);
+    public EventFullDto getEventById(@PathVariable Long eventId, @RequestHeader("X-EWM-USER-ID") Long userId) {
+        EventFullDto eventFullDto = eventService.getEvent(eventId);
+
+        collectorClient.saveView(userId, eventId);
+        log.info("User action of view event with id: {} received to Stats-Server", eventId);
+
+        return eventFullDto;
     }
 
     @GetMapping
@@ -58,17 +57,7 @@ public class PublicEventsController {
 
         EventPublicParam param = new EventPublicParam(
                 text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
-        List<EventShortDto> eventShorts = eventService.findEvents(param);
-
-        log.info("HIT request \"GET /events\" to statsService with params: {}", param);
-        statsClient.addHit(new StatisticDto(
-                "main-service",
-                request.getRequestURI(),
-                request.getRemoteAddr(),
-                LocalDateTime.now())
-        );
-
-        return eventShorts;
+        return eventService.findEvents(param);
     }
 
     @GetMapping("/full-event-by-id")
@@ -87,5 +76,16 @@ public class PublicEventsController {
     public List<EventShortDto> getByIds(@RequestParam List<Long> eventIds) {
         log.info("Запрос микросервисом событий с ID {}", eventIds);
         return eventService.getByIds(eventIds);
+    }
+
+    @GetMapping("/recommendations")
+    public List<EventShortDto> getRecommendations(@RequestHeader("X-EWM-USER-ID") Long userId) {
+        log.info("Запрос  подходящих событий для пользователя с ID {}", userId);
+        return eventService.getRecommendationsForUser(userId);
+    }
+
+    @PutMapping("/{eventId}/like")
+    public void likeEvent(@PathVariable Long eventId, @RequestHeader("X-EWM-USER-ID") Long userId) {
+        eventService.likeEvent(eventId, userId);
     }
 }

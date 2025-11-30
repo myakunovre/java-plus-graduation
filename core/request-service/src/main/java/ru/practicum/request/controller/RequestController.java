@@ -1,11 +1,13 @@
 package ru.practicum.request.controller;
 
+import interaction.client.request.RequestOperations;
 import interaction.model.request.ParticipationRequestDtoOut;
 import interaction.model.request.Status;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.CollectorClient;
 import ru.practicum.request.service.RequestService;
 
 import java.util.List;
@@ -14,9 +16,10 @@ import java.util.List;
 @RequestMapping
 @RequiredArgsConstructor
 @Slf4j
-public class RequestController {
+public class RequestController implements RequestOperations {
 
     private final RequestService requestService;
+    private final CollectorClient collectorClient;
 
     @GetMapping("/users/{userId}/requests")
     public List<ParticipationRequestDtoOut> getUserRequests(@PathVariable Long userId) {
@@ -37,6 +40,9 @@ public class RequestController {
         ParticipationRequestDtoOut request = requestService.create(userId, eventId);
         log.info("Created request with id: {} for userId: {}, eventId: {}", request.getId(), userId, eventId);
 
+        collectorClient.saveRegister(userId, eventId);
+        log.info("User action of registration event with id: {} received to Stats-Server", eventId);
+
         return request;
     }
 
@@ -52,7 +58,7 @@ public class RequestController {
     }
 
     @GetMapping("/requests/{id}")
-    ParticipationRequestDtoOut getById(@PathVariable("id") Long id) {
+    public ParticipationRequestDtoOut getById(@PathVariable("id") Long id) {
         log.info("Запрос на получение запроса с ID = {} от микросервиса", id);
         return requestService.getById(id);
     }
@@ -77,9 +83,14 @@ public class RequestController {
     }
 
     @GetMapping("/requests/count-by-event-id")
-    List<Object[]> getCountRequestByEventId(@RequestParam List<Long> eventIds,
-                                            @RequestParam Status status) {
+    public List<Object[]> getCountRequestByEventId(@RequestParam List<Long> eventIds,
+                                                   @RequestParam Status status) {
         log.info("Запрос от микросервиса на получение кол-ва запросов к событию с ID = {}", eventIds);
         return requestService.getCountRequestByEventId(eventIds, status);
+    }
+
+    @GetMapping("/requests/check-user-took-event")
+    public boolean isUserTookEvent(@RequestParam Long userId, @RequestParam Long eventId) {
+        return requestService.isUserTookEvent(userId, eventId);
     }
 }

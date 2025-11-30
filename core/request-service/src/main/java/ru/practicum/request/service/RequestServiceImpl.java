@@ -1,7 +1,7 @@
 package ru.practicum.request.service;
 
-import interaction.client.EventFeignClient;
-import interaction.client.UserFeignClient;
+import interaction.client.event.EventFeignClient;
+import interaction.client.user.UserFeignClient;
 import interaction.exceptions.ConflictException;
 import interaction.exceptions.NotFoundException;
 import interaction.model.event.State;
@@ -68,6 +68,7 @@ public class RequestServiceImpl implements RequestService {
 
         Request savedRequest = requestRepository.save(request);
         log.info("Request created with id: {}", savedRequest.getId());
+
         return requestMapper.toParticipationRequestDtoOut(savedRequest);
     }
 
@@ -137,6 +138,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<Object[]> getCountRequestByEventId(List<Long> eventIds, Status status) {
         return requestRepository.countAllByEventIdInAndStatus(eventIds, status);
+    }
+
+    @Override
+    public boolean isUserTookEvent(Long userId, Long eventId) {
+        return requestRepository.existsByRequesterIdAndEventIdAndStatus(userId, eventId, Status.CONFIRMED);
     }
 
     private void validateRequestCreation(UserShortDto requester, EventFullDto event) {
